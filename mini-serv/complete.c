@@ -147,11 +147,11 @@ int main(int ac, char **av) {
                 close(fd);
                 break;
             }
-            recv_buf[n] = 0;
+            recv_buf[n] = '\0';
 
             // 途中まで来ていたデータに連結し、完成した行だけ中継する
             client_buf[fd] = str_join(client_buf[fd], recv_buf);
-            if (client_buf[fd] == NULL)
+            if (!client_buf[fd])
                 err();
             while ((ret = extract_message(&client_buf[fd], &line)) != 0) {
                 if (ret < 0)
